@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2009 - 2013 SC 4ViewSoft SRL
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -78,7 +78,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Builds a new XY chart instance.
-   * 
+   *
    * @param dataset the multiple series dataset
    * @param renderer the multiple series renderer
    */
@@ -96,7 +96,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * The graphical representation of the XY chart.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param x the top left x value of the view to draw to
    * @param y the top left y value of the view to draw to
@@ -277,7 +277,12 @@ public abstract class XYChart extends AbstractChart {
           values.add(value.getValue());
 
           if (!isNullValue(yValue)) {
-            points.add((float) (left + xPixelsPerUnit[scale] * (xValue - minX[scale])));
+//            points.add((float) (left + xPixelsPerUnit[scale] * (xValue - minX[scale])));
+            float pointX = (float) (left + xPixelsPerUnit[scale] * (xValue - minX[scale]));
+            if (pointX <= left) {
+                continue;
+            }
+            points.add(pointX);
             points.add((float) (bottom - yPixelsPerUnit[scale] * (yValue - minY[scale])));
           } else if (isRenderNullValues()) {
             points.add((float) (left + xPixelsPerUnit[scale] * (xValue - minX[scale])));
@@ -510,7 +515,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Draws the series.
-   * 
+   *
    * @param series the series
    * @param canvas the canvas
    * @param paint the paint object
@@ -559,7 +564,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Draws the series points.
-   * 
+   *
    * @param canvas the canvas
    * @param paint the paint object
    * @param pointsList the points to be rendered
@@ -590,7 +595,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * The graphical representation of the series values as text.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param series the series to be painted
    * @param renderer the series renderer
@@ -647,7 +652,7 @@ public abstract class XYChart extends AbstractChart {
   /**
    * The graphical representation of a text, to handle both HORIZONTAL and
    * VERTICAL orientations and extra rotation angles.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param text the text to be rendered
    * @param x the X axis location of the text
@@ -672,7 +677,7 @@ public abstract class XYChart extends AbstractChart {
   /**
    * Transform the canvas such as it can handle both HORIZONTAL and VERTICAL
    * orientations.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param angle the angle of rotation
    * @param inverse if the inverse transform needs to be applied
@@ -691,7 +696,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * The graphical representation of the labels on the X axis.
-   * 
+   *
    * @param xLabels the X labels values
    * @param xTextLabelLocations the X text label locations
    * @param canvas the canvas to paint to
@@ -733,7 +738,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * The graphical representation of the labels on the Y axis.
-   * 
+   *
    * @param allYLabels the Y labels values
    * @param canvas the canvas to paint to
    * @param paint the paint to be used for drawing
@@ -807,7 +812,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * The graphical representation of the text labels on the X axis.
-   * 
+   *
    * @param xTextLabelLocations the X text label locations
    * @param canvas the canvas to paint to
    * @param paint the paint to be used for drawing
@@ -880,7 +885,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Transforms a screen point to a real coordinates point.
-   * 
+   *
    * @param screenX the screen x axis value
    * @param screenY the screen y axis value
    * @return the real coordinates point
@@ -958,7 +963,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * The graphical representation of a series.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param paint the paint to be used for drawing
    * @param points the array of points to be used for drawing the series
@@ -972,7 +977,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Returns the clickable areas for all passed points
-   * 
+   *
    * @param points the array of points
    * @param values the array of values of each point
    * @param yAxisValue the minimum value of the y axis
@@ -985,7 +990,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Returns if the chart should display the null values.
-   * 
+   *
    * @return if null values should be rendered
    */
   protected boolean isRenderNullValues() {
@@ -994,7 +999,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Returns if the chart should display the points as a certain shape.
-   * 
+   *
    * @param renderer the series renderer
    */
   public boolean isRenderPoints(SimpleSeriesRenderer renderer) {
@@ -1003,7 +1008,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Returns the default axis minimum.
-   * 
+   *
    * @return the default axis minimum
    */
   public double getDefaultMinimum() {
@@ -1012,7 +1017,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Returns the scatter chart to be used for drawing the data points.
-   * 
+   *
    * @return the data points scatter chart
    */
   public ScatterChart getPointsChart() {
@@ -1021,7 +1026,7 @@ public abstract class XYChart extends AbstractChart {
 
   /**
    * Returns the chart type identifier.
-   * 
+   *
    * @return the chart type
    */
   public abstract String getChartType();

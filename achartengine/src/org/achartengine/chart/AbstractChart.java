@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2009 - 2013 SC 4ViewSoft SRL
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +42,7 @@ import android.graphics.RectF;
 public abstract class AbstractChart implements Serializable {
   /**
    * The graphical representation of the chart.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param x the top left x value of the view to draw to
    * @param y the top left y value of the view to draw to
@@ -54,7 +54,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Draws the chart background.
-   * 
+   *
    * @param renderer the chart renderer
    * @param canvas the canvas to paint to
    * @param x the top left x value of the view to draw to
@@ -80,7 +80,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Draws the chart legend.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param renderer the series renderer
    * @param titles the titles to go to the legend
@@ -92,12 +92,13 @@ public abstract class AbstractChart implements Serializable {
    * @param legendSize the legend size
    * @param paint the paint to be used for drawing
    * @param calculate if only calculating the legend size
-   * 
+   *
    * @return the legend height
    */
   protected int drawLegend(Canvas canvas, DefaultRenderer renderer, String[] titles, int left,
       int right, int y, int width, int height, int legendSize, Paint paint, boolean calculate) {
-    float size = 32;
+//  float size = 32;
+    float size = renderer.getLegendTextSize() + renderer.getLabelsTextSize() * 4 / 3;
     if (renderer.isShowLegend()) {
       float currentX = left;
       float currentY = y + height - legendSize + size;
@@ -139,7 +140,8 @@ public abstract class AbstractChart implements Serializable {
           }
           if (!calculate) {
             drawLegendShape(canvas, r, currentX, currentY, i, paint);
-            drawString(canvas, text, currentX + lineSize + 5, currentY + 5, paint);
+//            drawString(canvas, text, currentX + lineSize + 5, currentY + 5, paint);
+            drawString(canvas, text, currentX + lineSize + 5, currentY, paint);
           }
           currentX += extraSize;
         }
@@ -150,7 +152,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Draw a multiple lines string.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param text the text to be painted
    * @param x the x value of the area to draw to
@@ -172,7 +174,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Calculates if the current width exceeds the total width.
-   * 
+   *
    * @param currentWidth the current width
    * @param renderer the renderer
    * @param right the right side pixel value
@@ -189,7 +191,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Checks if the current chart is rendered as vertical.
-   * 
+   *
    * @param renderer the renderer
    * @return if the chart is rendered as a vertical one
    */
@@ -200,8 +202,8 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Makes sure the fraction digit is not displayed, if not needed.
-   * 
-   * 
+   *
+   *
    * @param format the number format for the label
    * @param label the input label value
    * @return the label without the useless fraction digit
@@ -292,7 +294,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * The graphical representation of a path.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param points the points that are contained in the path to paint
    * @param paint the paint to be used for painting
@@ -333,7 +335,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * The graphical representation of a path.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param points the points that are contained in the path to paint
    * @param paint the paint to be used for painting
@@ -373,7 +375,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Returns the legend shape width.
-   * 
+   *
    * @param seriesIndex the series index
    * @return the legend shape width
    */
@@ -381,7 +383,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * The graphical representation of the legend shape.
-   * 
+   *
    * @param canvas the canvas to paint to
    * @param renderer the series renderer
    * @param x the x value of the point the shape should be drawn at
@@ -394,7 +396,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Calculates the best text to fit into the available space.
-   * 
+   *
    * @param text the entire text
    * @param width the width to fit the text into
    * @param paint the paint
@@ -416,7 +418,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Calculates the current legend size.
-   * 
+   *
    * @param renderer the renderer
    * @param defaultHeight the default height
    * @param extraHeight the added extra height
@@ -435,7 +437,7 @@ public abstract class AbstractChart implements Serializable {
 
   /**
    * Draws a text label.
-   * 
+   *
    * @param canvas the canvas
    * @param labelText the label text
    * @param renderer the renderer
@@ -518,7 +520,7 @@ public abstract class AbstractChart implements Serializable {
    * Given screen coordinates, returns the series and point indexes of a chart
    * element. If there is no chart element (line, point, bar, etc) at those
    * coordinates, null is returned.
-   * 
+   *
    * @param screenPoint
    * @return the series and point indexes
    */
